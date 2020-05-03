@@ -34,7 +34,7 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin_br
     ports:
-      - 2323:80
+      - "2222:80"
     links:
       - mysql_br:db
     networks:
