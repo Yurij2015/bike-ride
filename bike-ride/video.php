@@ -49,7 +49,7 @@
             <li><a href="#">Заезды</a>
                 <ul class="sub-menu">
                     <li><a href="about-us.html">Маршруты</a></li>
-                    <li><a href="loans.html">Участники</a></li>
+                    <li><a href="members.php">Участники</a></li>
                     <li><a href="elements.html">Победители</a></li>
                 </ul>
             </li>
