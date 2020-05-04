@@ -335,7 +335,7 @@ to get the desired effect
 
 <!-- Main Footer -->
 <footer class="main-footer">
-  <strong>Copyright &copy; <?= date("Y") ?> <a href="./admin">AdminLTE.io</a>.</strong>
+  <strong>Copyright &copy; <?= date("Y") ?> <a href="./">RB-Admin</a>.</strong>
   Все права защищены.
   <div class="float-right d-none d-sm-inline-block">
     <b>BR-Admin</b> 1.0

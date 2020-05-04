@@ -1,17 +1,19 @@
 <?php
 $mgs = "";
 if ($_POST) {
-  $name = trim(htmlspecialchars($_POST['name']));
-  $phone = trim(htmlspecialchars($_POST['phone']));
-  $email = trim(htmlspecialchars($_POST['email']));
-  if (!empty($name)) {
+  $from = trim(htmlspecialchars($_POST['from']));
+  $to = trim(htmlspecialchars($_POST['to']));
+  $distance = trim(htmlspecialchars($_POST['distance']));
+  $description = trim(htmlspecialchars($_POST['description']));
+  if (!empty($from)) {
     require_once("../RedBeanPHP5_4_2/rb.php");
     R::setup('mysql:host=mysql_br;port=3306;dbname=brdb', 'root', 'root3004917779');
-    $members = R::dispense('members');
-    $members->name = $name;
-    $members->email = $email;
-    $members->phone = $phone;
-    R::store($members);
+    $routes = R::dispense('routes');
+    $routes->from = $from;
+    $routes->to = $to;
+    $routes->distance = $distance;
+    $routes->description = $description;
+    R::store($routes);
     $msg = "Данные отправлены!";
     header("Location: " . "./");
   } else {
@@ -251,7 +253,7 @@ to get the desired effect
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Участники</h1>
+            <h1 class="m-0 text-dark">Маршруты</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -283,19 +285,29 @@ to get the desired effect
                 <div class="card-body">
                   <div class="form-group">
 
-                    <label for="name">Ваше имя</label>
-                    <input type="text" name="name" class="form-control" id="name"
-                           placeholder="Ваше имя" required>
+                    <label for="from">Начальный пункт</label>
+                    <input type="text" name="from" class="form-control" id="from"
+                           placeholder="Начальный пункт" required>
+                  </div>
 
-                    <label for="email">Электронаня почта</label>
-                    <input type="email" name="email" class="form-control" id="email"
-                           placeholder="Электронаня почта" required>
-                  </div>
                   <div class="form-group">
-                    <label for="phone">Номер телефона</label>
-                    <input type="text" name="phone" class="form-control" id="phone"
-                           placeholder="Номер телефона" required>
+                    <label for="to">Конечный пункт</label>
+                    <input type="text" name="to" class="form-control" id="to"
+                           placeholder="Конечный пункт" required>
                   </div>
+
+                  <div class="form-group">
+                    <label for="distance">Дистанция</label>
+                    <input type="text" name="distance" class="form-control" id="distance"
+                           placeholder="Дистанция" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="description">Описание маршрута</label>
+                    <input type="text" name="description" class="form-control" id="description"
+                           placeholder="Описание маршрута" required>
+                  </div>
+
                 </div>
             </div>
             <!-- /.card-body -->

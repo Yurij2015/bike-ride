@@ -36,7 +36,7 @@ to get the desired effect
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="./index.php" class="nav-link">Главная</a>
+        <a href="./index.php" class="nav-link active">Главная</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="./members.php" class="nav-link">Участники</a>
@@ -267,13 +267,13 @@ to get the desired effect
                   <?php
                   require_once("../RedBeanPHP5_4_2/rb.php");
                   R::setup('mysql:host=mysql_br;port=3306;dbname=brdb', 'root', 'root3004917779');
-                  $members = R::getAll('SELECT * FROM members');
-                  foreach ($members as $member) {
+                  $routes = R::getAll('SELECT * FROM members');
+                  foreach ($routes as $route) {
                     ?>
                     <tr>
-                      <td><?= $member['name'] ?></td>
-                      <td><?= $member['phone'] ?></td>
-                      <td><?= $member['email'] ?></td>
+                      <td><?= $route['name'] ?></td>
+                      <td><?= $route['phone'] ?></td>
+                      <td><?= $route['email'] ?></td>
                     </tr>
                     <?php
                   }
@@ -298,48 +298,26 @@ to get the desired effect
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Sales</th>
+                    <th>Начальный пункт</th>
+                    <th>Конечный пункт</th>
+                    <th>Дистанция</th>
+                    <th>Описание маршрута</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>
-                      Some Product
-                    </td>
-                    <td>$13 USD</td>
-                    <td>
-                      12,000 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Another Product
-                    </td>
-                    <td>$29 USD</td>
-                    <td>
-                      123,234 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Amazing Product
-                    </td>
-                    <td>$1,230 USD</td>
-                    <td>
-                      198 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Perfect Item
-                    </td>
-                    <td>$199 USD</td>
-                    <td>
-                      87 Sold
-                    </td>
-                  </tr>
+                  <?php
+                  $routes = R::getAll('SELECT * FROM routes');
+                  foreach ($routes as $route) {
+                    ?>
+                    <tr>
+                      <td><?= $route['from'] ?></td>
+                      <td><?= $route['to'] ?></td>
+                      <td><?= $route['distance'] ?></td>
+                      <td><?= $route['description'] ?></td>
+                    </tr>
+                    <?php
+                  }
+                  ?>
                   </tbody>
                 </table>
               </div>
@@ -361,48 +339,24 @@ to get the desired effect
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Sales</th>
+                    <th>Участник</th>
+                    <th>Номер телефона</th>
+                    <th>Электронный адрес</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>
-                      Some Product
-                    </td>
-                    <td>$13 USD</td>
-                    <td>
-                      12,000 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Another Product
-                    </td>
-                    <td>$29 USD</td>
-                    <td>
-                      123,234 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Amazing Product
-                    </td>
-                    <td>$1,230 USD</td>
-                    <td>
-                      198 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Perfect Item
-                    </td>
-                    <td>$199 USD</td>
-                    <td>
-                      87 Sold
-                    </td>
-                  </tr>
+                  <?php
+                  $routes = R::getAll('SELECT * FROM members');
+                  foreach ($routes as $route) {
+                    ?>
+                    <tr>
+                      <td><?= $route['name'] ?></td>
+                      <td><?= $route['phone'] ?></td>
+                      <td><?= $route['email'] ?></td>
+                    </tr>
+                    <?php
+                  }
+                  ?>
                   </tbody>
                 </table>
               </div>
@@ -424,48 +378,24 @@ to get the desired effect
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Sales</th>
+                    <th>Участник</th>
+                    <th>Номер телефона</th>
+                    <th>Электронный адрес</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>
-                      Some Product
-                    </td>
-                    <td>$13 USD</td>
-                    <td>
-                      12,000 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Another Product
-                    </td>
-                    <td>$29 USD</td>
-                    <td>
-                      123,234 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Amazing Product
-                    </td>
-                    <td>$1,230 USD</td>
-                    <td>
-                      198 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Perfect Item
-                    </td>
-                    <td>$199 USD</td>
-                    <td>
-                      87 Sold
-                    </td>
-                  </tr>
+                  <?php
+                  $routes = R::getAll('SELECT * FROM members');
+                  foreach ($routes as $route) {
+                    ?>
+                    <tr>
+                      <td><?= $route['name'] ?></td>
+                      <td><?= $route['phone'] ?></td>
+                      <td><?= $route['email'] ?></td>
+                    </tr>
+                    <?php
+                  }
+                  ?>
                   </tbody>
                 </table>
               </div>
@@ -480,55 +410,32 @@ to get the desired effect
             <div class="card">
               <div class="card-header border-0">
                 <h3 class="card-title">Велопробеги</h3>
-                <a href="add-bike-ride.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
+                <a href="add-bike-ride.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить
+                  запись</a>
 
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Sales</th>
+                    <th>Участник</th>
+                    <th>Номер телефона</th>
+                    <th>Электронный адрес</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>
-                      Some Product
-                    </td>
-                    <td>$13 USD</td>
-                    <td>
-                      12,000 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Another Product
-                    </td>
-                    <td>$29 USD</td>
-                    <td>
-                      123,234 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Amazing Product
-                    </td>
-                    <td>$1,230 USD</td>
-                    <td>
-                      198 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Perfect Item
-                    </td>
-                    <td>$199 USD</td>
-                    <td>
-                      87 Sold
-                    </td>
-                  </tr>
+                  <?php
+                  $routes = R::getAll('SELECT * FROM members');
+                  foreach ($routes as $route) {
+                    ?>
+                    <tr>
+                      <td><?= $route['name'] ?></td>
+                      <td><?= $route['phone'] ?></td>
+                      <td><?= $route['email'] ?></td>
+                    </tr>
+                    <?php
+                  }
+                  ?>
                   </tbody>
                 </table>
               </div>
@@ -543,55 +450,32 @@ to get the desired effect
             <div class="card">
               <div class="card-header border-0">
                 <h3 class="card-title">Информация</h3>
-                <a href="add-information.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
+                <a href="add-information.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить
+                  запись</a>
 
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Sales</th>
+                    <th>Участник</th>
+                    <th>Номер телефона</th>
+                    <th>Электронный адрес</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>
-                      Some Product
-                    </td>
-                    <td>$13 USD</td>
-                    <td>
-                      12,000 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Another Product
-                    </td>
-                    <td>$29 USD</td>
-                    <td>
-                      123,234 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Amazing Product
-                    </td>
-                    <td>$1,230 USD</td>
-                    <td>
-                      198 Sold
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Perfect Item
-                    </td>
-                    <td>$199 USD</td>
-                    <td>
-                      87 Sold
-                    </td>
-                  </tr>
+                  <?php
+                  $routes = R::getAll('SELECT * FROM members');
+                  foreach ($routes as $route) {
+                    ?>
+                    <tr>
+                      <td><?= $route['name'] ?></td>
+                      <td><?= $route['phone'] ?></td>
+                      <td><?= $route['email'] ?></td>
+                    </tr>
+                    <?php
+                  }
+                  ?>
                   </tbody>
                 </table>
               </div>
@@ -618,7 +502,7 @@ to get the desired effect
 
 <!-- Main Footer -->
 <footer class="main-footer">
-  <strong>Copyright &copy; <?= date("Y") ?> <a href="./admin">AdminLTE.io</a>.</strong>
+  <strong>Copyright &copy; <?= date("Y") ?> <a href="./">RB-Admin</a>.</strong>
   Все права защищены.
   <div class="float-right d-none d-sm-inline-block">
     <b>BR-Admin</b> 1.0

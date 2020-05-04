@@ -1,19 +1,19 @@
 <?php
 $mgs = "";
 if ($_POST) {
-  $name = trim(htmlspecialchars($_POST['name']));
-  $phone = trim(htmlspecialchars($_POST['phone']));
-  $email = trim(htmlspecialchars($_POST['email']));
-  if (!empty($name)) {
+  $link = trim(htmlspecialchars($_POST['link']));
+  $description = trim(htmlspecialchars($_POST['description']));
+  $bike_riders_id = $_POST['bike_riders_id'];
+  if (!empty($link)) {
     require_once("../RedBeanPHP5_4_2/rb.php");
     R::setup('mysql:host=mysql_br;port=3306;dbname=brdb', 'root', 'root3004917779');
-    $members = R::dispense('members');
-    $members->name = $name;
-    $members->email = $email;
-    $members->phone = $phone;
-    R::store($members);
+    $video = R::dispense('video');
+    $video->link = $link;
+    $video->description = $description;
+//    $video->bike_riders_id = $bike_riders_id;
+    R::store($video);
     $msg = "Данные отправлены!";
-    header("Location: " . "./");
+    header("Location: " . "./video.php");
   } else {
     $msg = 'Ошибка отправки данных';
   }
@@ -27,7 +27,7 @@ if ($_POST) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>BikeRide | Admin</title>
+  <title>Видео | BikeRide | Admin</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -67,7 +67,7 @@ to get the desired effect
         <a href="#" class="nav-link">Маршруты</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Видео</a>
+        <a href="#" class="nav-link active">Видео</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Результаты</a>
@@ -79,87 +79,7 @@ to get the desired effect
         <a href="#" class="nav-link">Информация</a>
       </li>
     </ul>
-
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-        </div>
-      </li>
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
-    </ul>
   </nav>
   <!-- /.navbar -->
 
@@ -196,7 +116,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./members.php" class="nav-link active">
+            <a href="./members.php" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Участники</p>
             </a>
@@ -210,7 +130,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./video.php" class="nav-link">
+            <a href="./video.php" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Видео</p>
             </a>
@@ -251,13 +171,13 @@ to get the desired effect
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Участники</h1>
+            <h1 class="m-0 text-dark">Видео</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="./">Главная</a></li>
-              <li class="breadcrumb-item"><a href="members.php">Участники</a></li>
-              <li class="breadcrumb-item active">Добавить участника&nbsp;</li>
+              <li class="breadcrumb-item"><a href="video.php">Видео</a></li>
+              <li class="breadcrumb-item active">Добавить видео&nbsp;</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -283,19 +203,20 @@ to get the desired effect
                 <div class="card-body">
                   <div class="form-group">
 
-                    <label for="name">Ваше имя</label>
-                    <input type="text" name="name" class="form-control" id="name"
-                           placeholder="Ваше имя" required>
-
-                    <label for="email">Электронаня почта</label>
-                    <input type="email" name="email" class="form-control" id="email"
-                           placeholder="Электронаня почта" required>
+                    <label for="link">Код видео вида - "JzbKTRFXQXU". Находится в ссылке на youtube-видео</label>
+                    <input type="text" name="link" class="form-control" id="link"
+                           placeholder="Код видео" required>
                   </div>
                   <div class="form-group">
-                    <label for="phone">Номер телефона</label>
-                    <input type="text" name="phone" class="form-control" id="phone"
-                           placeholder="Номер телефона" required>
+                    <label for="description">Описание видео</label>
+                    <input type="text" name="description" class="form-control" id="description"
+                           placeholder="Описание видео" required>
                   </div>
+<!--                  <div class="form-group">-->
+<!--                    <label for="bike_riders_id">Велопробег</label>-->
+<!--                    <input type="text" name="bike_riders_id" class="form-control" id="bike_riders_id"-->
+<!--                           placeholder="Велопробег">-->
+<!--                  </div>-->
                 </div>
             </div>
             <!-- /.card-body -->

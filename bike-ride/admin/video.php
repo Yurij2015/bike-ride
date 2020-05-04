@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Участники | BikeRide</title>
+  <title>Видео | BikeRide</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -45,7 +45,7 @@ to get the desired effect
         <a href="./routes.php" class="nav-link">Маршруты</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="./video.php" class="nav-link">Видео</a>
+        <a href="./video.php" class="nav-link active">Видео</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="./results.php" class="nav-link">Результаты</a>
@@ -97,7 +97,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./members.php" class="nav-link active">
+            <a href="./members.php" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Участники</p>
             </a>
@@ -111,7 +111,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./video.php" class="nav-link">
+            <a href="./video.php" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Видео</p>
             </a>
@@ -175,29 +175,33 @@ to get the desired effect
             <div class="card">
               <div class="card-header border-0">
                 <h3 class="card-title">Участники</h3>
-                <a href="add-member.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
+                <a href="add-video.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
 
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Участник</th>
-                    <th>Номер телефона</th>
-                    <th>Электронный адрес</th>
+                    <th>Код видео</th>
+                    <th>Описание</th>
+<!--                    <th>Велопробег</th>-->
                   </tr>
                   </thead>
                   <tbody>
                   <?php
                   require_once("../RedBeanPHP5_4_2/rb.php");
                   R::setup('mysql:host=mysql_br;port=3306;dbname=brdb', 'root', 'root3004917779');
-                  $members = R::getAll('SELECT * FROM members');
-                  foreach ($members as $member) {
+                  $videos = R::getAll('SELECT * FROM video');
+                  foreach ($videos as $video) {
                     ?>
                     <tr>
-                      <td><?= $member['name'] ?></td>
-                      <td><?= $member['phone'] ?></td>
-                      <td><?= $member['email'] ?></td>
+                      <td>
+                        <iframe width="550" height="400"
+                                src="https://www.youtube.com/embed/<?= $video['link'] ?>">
+                        </iframe>
+                       Код видео - <?= $video['link'] ?></td>
+                      <td><?= $video['description'] ?></td>
+<!--                      <td>--><?//= $video['bike_riders_id'] ?><!--</td>-->
                     </tr>
                     <?php
                   }

@@ -1,19 +1,23 @@
 <?php
 $mgs = "";
 if ($_POST) {
-  $name = trim(htmlspecialchars($_POST['name']));
-  $phone = trim(htmlspecialchars($_POST['phone']));
-  $email = trim(htmlspecialchars($_POST['email']));
-  if (!empty($name)) {
+  $time = trim(htmlspecialchars($_POST['time']));
+  $date = trim(htmlspecialchars($_POST['date']));
+  $memberId = $_POST['memberId'];
+  $routesId = $_POST['routesId'];
+  $description = trim(htmlspecialchars($_POST['description']));
+  if (!empty($description)) {
     require_once("../RedBeanPHP5_4_2/rb.php");
     R::setup('mysql:host=mysql_br;port=3306;dbname=brdb', 'root', 'root3004917779');
-    $members = R::dispense('members');
-    $members->name = $name;
-    $members->email = $email;
-    $members->phone = $phone;
-    R::store($members);
+    $results = R::dispense('results');
+    $results->time = $time;
+    $results->date = $date;
+    $results->member_id = $memberId;
+    $results->routes_id = $routesId;
+    $results->description = $description;
+    R::store($results);
     $msg = "Данные отправлены!";
-    header("Location: " . "./");
+    header("Location: " . "./results.php");
   } else {
     $msg = 'Ошибка отправки данных';
   }
@@ -282,20 +286,46 @@ to get the desired effect
               <form role="form" id="quickForm" method="post">
                 <div class="card-body">
                   <div class="form-group">
-
-                    <label for="name">Ваше имя</label>
-                    <input type="text" name="name" class="form-control" id="name"
-                           placeholder="Ваше имя" required>
-
-                    <label for="email">Электронаня почта</label>
-                    <input type="email" name="email" class="form-control" id="email"
-                           placeholder="Электронаня почта" required>
+                    <label for="memberId">Участник</label>
+                    <select type="text" class="form-control" name="memberId" id="memberId">
+                      <?php
+                      require_once("../RedBeanPHP5_4_2/rb.php");
+                      R::setup('mysql:host=mysql_br;port=3306;dbname=brdb', 'root', 'root3004917779');
+                      $results = R::getAll('SELECT * FROM members');
+                      foreach ($results as $member) { ?>
+                        <option value="<?php echo $member['id']; ?>">
+                          <?php echo $member['name']; ?>                                                                     </option>
+                      <?php } ?>
+                    </select>
                   </div>
                   <div class="form-group">
-                    <label for="phone">Номер телефона</label>
-                    <input type="text" name="phone" class="form-control" id="phone"
-                           placeholder="Номер телефона" required>
+                    <label for="routesId">Маршрут</label>
+                    <select type="text" class="form-control" name="routesId" id="routesId">
+                      <?php
+                      $routes= R::getAll('SELECT * FROM routes');
+                      foreach ($routes as $route) { ?>
+                        <option value="<?php echo $route['id']; ?>">
+                          <?php echo $route['description']; ?>                                                                     </option>
+                      <?php } ?>
+                    </select>
                   </div>
+                  <div class="form-group">
+                    <label for="date">Дата</label>
+                    <input type="date" name="date" class="form-control" id="date"
+                           placeholder="Дата" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="time">Время</label>
+                    <input type="text" name="time" class="form-control" id="time"
+                           placeholder="Время" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Описание</label>
+                    <input type="text" name="description" class="form-control" id="description"
+                           placeholder="Описание" required>
+                  </div>
+
                 </div>
             </div>
             <!-- /.card-body -->
@@ -335,7 +365,7 @@ to get the desired effect
 
 <!-- Main Footer -->
 <footer class="main-footer">
-  <strong>Copyright &copy; <?= date("Y") ?> <a href="./admin">AdminLTE.io</a>.</strong>
+  <strong>Copyright &copy; <?= date("Y") ?> <a href="./">BR-Admin</a>.</strong>
   Все права защищены.
   <div class="float-right d-none d-sm-inline-block">
     <b>BR-Admin</b> 1.0

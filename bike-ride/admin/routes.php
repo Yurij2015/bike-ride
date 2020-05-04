@@ -42,7 +42,7 @@ to get the desired effect
         <a href="./members.php" class="nav-link">Участники</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="./routes.php" class="nav-link">Маршруты</a>
+        <a href="./routes.php" class="nav-link active">Маршруты</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="./video.php" class="nav-link">Видео</a>
@@ -97,14 +97,14 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./members.php" class="nav-link active">
+            <a href="./members.php" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Участники</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="./routes.php" class="nav-link">
+            <a href="./routes.php" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Маршруты</p>
             </a>
@@ -174,30 +174,32 @@ to get the desired effect
 
             <div class="card">
               <div class="card-header border-0">
-                <h3 class="card-title">Участники</h3>
-                <a href="add-member.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
+                <h3 class="card-title">Маршруты</h3>
+                <a href="add-route.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
 
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Участник</th>
-                    <th>Номер телефона</th>
-                    <th>Электронный адрес</th>
+                    <th>Начальный пункт</th>
+                    <th>Конечный пункт</th>
+                    <th>Дистанция</th>
+                    <th>Описание маршрута</th>
                   </tr>
                   </thead>
                   <tbody>
                   <?php
                   require_once("../RedBeanPHP5_4_2/rb.php");
                   R::setup('mysql:host=mysql_br;port=3306;dbname=brdb', 'root', 'root3004917779');
-                  $members = R::getAll('SELECT * FROM members');
-                  foreach ($members as $member) {
+                  $routes = R::getAll('SELECT * FROM routes');
+                  foreach ($routes as $route) {
                     ?>
                     <tr>
-                      <td><?= $member['name'] ?></td>
-                      <td><?= $member['phone'] ?></td>
-                      <td><?= $member['email'] ?></td>
+                      <td><?= $route['from'] ?></td>
+                      <td><?= $route['to'] ?></td>
+                      <td><?= $route['distance'] ?></td>
+                      <td><?= $route['description'] ?></td>
                     </tr>
                     <?php
                   }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Участники | BikeRide</title>
+  <title>Новости | Информация | BikeRide</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -54,7 +54,7 @@ to get the desired effect
         <a href="./bike-riders.php" class="nav-link">Велопробеги</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="./information.php" class="nav-link">Информация</a>
+        <a href="./information.php" class="nav-link active">Информация</a>
       </li>
     </ul>
 
@@ -97,7 +97,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./members.php" class="nav-link active">
+            <a href="./members.php" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Участники</p>
             </a>
@@ -132,7 +132,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./information.php" class="nav-link">
+            <a href="./information.php" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Информация</p>
             </a>
@@ -152,13 +152,13 @@ to get the desired effect
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Участники</h1>
+            <h1 class="m-0 text-dark">Информация | Новости</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="./">Главная</a></li>
-              <li class="breadcrumb-item"><a href="members.php">Участники</a></li>
-              <li class="breadcrumb-item active">Добавить участника&nbsp;</li>
+              <li class="breadcrumb-item"><a href="information.php">Информация</a></li>
+              <li class="breadcrumb-item active">Добавить информацию&nbsp;</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -174,30 +174,28 @@ to get the desired effect
 
             <div class="card">
               <div class="card-header border-0">
-                <h3 class="card-title">Участники</h3>
-                <a href="add-member.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
+                <h3 class="card-title">Информация | Новости</h3>
+                <a href="add-information.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
 
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Участник</th>
-                    <th>Номер телефона</th>
-                    <th>Электронный адрес</th>
+                    <th>Название новости</th>
+                    <th>Содержание новости</th>
                   </tr>
                   </thead>
                   <tbody>
                   <?php
                   require_once("../RedBeanPHP5_4_2/rb.php");
                   R::setup('mysql:host=mysql_br;port=3306;dbname=brdb', 'root', 'root3004917779');
-                  $members = R::getAll('SELECT * FROM members');
-                  foreach ($members as $member) {
+                  $informations = R::getAll('SELECT * FROM information');
+                  foreach ($informations as $information) {
                     ?>
                     <tr>
-                      <td><?= $member['name'] ?></td>
-                      <td><?= $member['phone'] ?></td>
-                      <td><?= $member['email'] ?></td>
+                      <td><?= $information['name'] ?></td>
+                      <td><?= $information['phone'] ?></td>
                     </tr>
                     <?php
                   }
@@ -229,7 +227,7 @@ to get the desired effect
 
 <!-- Main Footer -->
 <footer class="main-footer">
-  <strong>Copyright &copy; <?= date("Y") ?> <a href="./admin">AdminLTE.io</a>.</strong>
+  <strong>Copyright &copy; <?= date("Y") ?> <a href="./admin">BR-Admin</a>.</strong>
   Все права защищены.
   <div class="float-right d-none d-sm-inline-block">
     <b>BR-Admin</b> 1.0

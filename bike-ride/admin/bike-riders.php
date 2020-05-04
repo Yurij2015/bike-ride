@@ -51,7 +51,7 @@ to get the desired effect
         <a href="./results.php" class="nav-link">Результаты</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="./bike-riders.php" class="nav-link">Велопробеги</a>
+        <a href="./bike-riders.php" class="nav-link active">Велопробеги</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="./information.php" class="nav-link">Информация</a>
@@ -97,7 +97,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./members.php" class="nav-link active">
+            <a href="./members.php" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Участники</p>
             </a>
@@ -125,7 +125,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./bike-riders.php" class="nav-link">
+            <a href="./bike-riders.php" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Заезды</p>
             </a>
@@ -157,8 +157,8 @@ to get the desired effect
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="./">Главная</a></li>
-              <li class="breadcrumb-item"><a href="members.php">Участники</a></li>
-              <li class="breadcrumb-item active">Добавить участника&nbsp;</li>
+              <li class="breadcrumb-item"><a href="bike-riders.php">Велопробеги</a></li>
+              <li class="breadcrumb-item active">Добавить велопробег&nbsp;</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -174,30 +174,28 @@ to get the desired effect
 
             <div class="card">
               <div class="card-header border-0">
-                <h3 class="card-title">Участники</h3>
-                <a href="add-member.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
+                <h3 class="card-title">Велопробеги</h3>
+                <a href="add-bike-ride.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
 
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Участник</th>
-                    <th>Номер телефона</th>
-                    <th>Электронный адрес</th>
+                    <th>Название</th>
+                    <th>Дата</th>
                   </tr>
                   </thead>
                   <tbody>
                   <?php
                   require_once("../RedBeanPHP5_4_2/rb.php");
                   R::setup('mysql:host=mysql_br;port=3306;dbname=brdb', 'root', 'root3004917779');
-                  $members = R::getAll('SELECT * FROM members');
-                  foreach ($members as $member) {
+                  $results = R::getAll('SELECT * FROM bikeriders');
+                  foreach ($results as $result) {
                     ?>
                     <tr>
-                      <td><?= $member['name'] ?></td>
-                      <td><?= $member['phone'] ?></td>
-                      <td><?= $member['email'] ?></td>
+                      <td><?= $result['name'] ?></td>
+                      <td><?= $result['brdate'] ?></td>
                     </tr>
                     <?php
                   }
@@ -229,7 +227,7 @@ to get the desired effect
 
 <!-- Main Footer -->
 <footer class="main-footer">
-  <strong>Copyright &copy; <?= date("Y") ?> <a href="./admin">AdminLTE.io</a>.</strong>
+  <strong>Copyright &copy; <?= date("Y") ?> <a href="./">BR-Admin</a>.</strong>
   Все права защищены.
   <div class="float-right d-none d-sm-inline-block">
     <b>BR-Admin</b> 1.0

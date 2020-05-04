@@ -2,18 +2,16 @@
 $mgs = "";
 if ($_POST) {
   $name = trim(htmlspecialchars($_POST['name']));
-  $phone = trim(htmlspecialchars($_POST['phone']));
-  $email = trim(htmlspecialchars($_POST['email']));
+  $brdate = $_POST['brdate'];
   if (!empty($name)) {
     require_once("../RedBeanPHP5_4_2/rb.php");
     R::setup('mysql:host=mysql_br;port=3306;dbname=brdb', 'root', 'root3004917779');
-    $members = R::dispense('members');
-    $members->name = $name;
-    $members->email = $email;
-    $members->phone = $phone;
-    R::store($members);
+    $bikeriders = R::dispense('bikeriders');
+    $bikeriders->name = $name;
+    $bikeriders->brdate = $brdate;
+    R::store($bikeriders);
     $msg = "Данные отправлены!";
-    header("Location: " . "./");
+    header("Location: " . "./bike-riders.php");
   } else {
     $msg = 'Ошибка отправки данных';
   }
@@ -27,7 +25,7 @@ if ($_POST) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>BikeRide | Admin</title>
+  <title>Велопобеги | BikeRide | Admin</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -72,92 +70,11 @@ to get the desired effect
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Результаты</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      <li class="nav-item d-none d-sm-inline-block active">
         <a href="#" class="nav-link">Велопробеги</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Информация</a>
-      </li>
-    </ul>
-
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-        </div>
-      </li>
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
       </li>
     </ul>
   </nav>
@@ -196,7 +113,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./members.php" class="nav-link active">
+            <a href="./members.php" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Участники</p>
             </a>
@@ -224,7 +141,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./bike-riders.php" class="nav-link">
+            <a href="./bike-riders.php" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Велопробеги</p>
             </a>
@@ -251,13 +168,13 @@ to get the desired effect
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Участники</h1>
+            <h1 class="m-0 text-dark">Велопробеги</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="./">Главная</a></li>
-              <li class="breadcrumb-item"><a href="members.php">Участники</a></li>
-              <li class="breadcrumb-item active">Добавить участника&nbsp;</li>
+              <li class="breadcrumb-item"><a href="bike-riders.php">Велопробеги</a></li>
+              <li class="breadcrumb-item active">Добавить запись&nbsp;</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -283,18 +200,13 @@ to get the desired effect
                 <div class="card-body">
                   <div class="form-group">
 
-                    <label for="name">Ваше имя</label>
+                    <label for="name">Название</label>
                     <input type="text" name="name" class="form-control" id="name"
-                           placeholder="Ваше имя" required>
+                           placeholder="Название" required>
 
-                    <label for="email">Электронаня почта</label>
-                    <input type="email" name="email" class="form-control" id="email"
-                           placeholder="Электронаня почта" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="phone">Номер телефона</label>
-                    <input type="text" name="phone" class="form-control" id="phone"
-                           placeholder="Номер телефона" required>
+                    <label for="brdate">Дата</label>
+                    <input type="date" name="brdate" class="form-control" id="brdate"
+                           placeholder="Дата" required>
                   </div>
                 </div>
             </div>
@@ -335,7 +247,7 @@ to get the desired effect
 
 <!-- Main Footer -->
 <footer class="main-footer">
-  <strong>Copyright &copy; <?= date("Y") ?> <a href="./admin">AdminLTE.io</a>.</strong>
+  <strong>Copyright &copy; <?= date("Y") ?> <a href="./">BR-Admin</a>.</strong>
   Все права защищены.
   <div class="float-right d-none d-sm-inline-block">
     <b>BR-Admin</b> 1.0

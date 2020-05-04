@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Участники | BikeRide</title>
+  <title>Результаты | BikeRide</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -48,7 +48,7 @@ to get the desired effect
         <a href="./video.php" class="nav-link">Видео</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="./results.php" class="nav-link">Результаты</a>
+        <a href="./results.php" class="nav-link active">Результаты</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="./bike-riders.php" class="nav-link">Велопробеги</a>
@@ -97,7 +97,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./members.php" class="nav-link active">
+            <a href="./members.php" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Участники</p>
             </a>
@@ -118,7 +118,7 @@ to get the desired effect
           </li>
 
           <li class="nav-item">
-            <a href="./results.php" class="nav-link">
+            <a href="./results.php" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Результаты</p>
             </a>
@@ -175,7 +175,7 @@ to get the desired effect
             <div class="card">
               <div class="card-header border-0">
                 <h3 class="card-title">Участники</h3>
-                <a href="add-member.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
+                <a href="add-result.php" class="btn btn-primary btn-sm float-right" target="_blank">Добавить запись</a>
 
               </div>
               <div class="card-body table-responsive p-0">
@@ -183,21 +183,30 @@ to get the desired effect
                   <thead>
                   <tr>
                     <th>Участник</th>
-                    <th>Номер телефона</th>
-                    <th>Электронный адрес</th>
+                    <th>Маршрут</th>
+                    <th>Дата</th>
+                    <th>Время</th>
+                    <th>Описание</th>
                   </tr>
                   </thead>
                   <tbody>
                   <?php
                   require_once("../RedBeanPHP5_4_2/rb.php");
                   R::setup('mysql:host=mysql_br;port=3306;dbname=brdb', 'root', 'root3004917779');
-                  $members = R::getAll('SELECT * FROM members');
-                  foreach ($members as $member) {
+                  $results = R::getAll('SELECT * FROM results');
+                  foreach ($results as $result) {
+                    $member_id = $result['member_id'];
+                    $routes_id = $result['routes_id'];
+                    $member = R::findOne('members', ' id = ? ', ["$member_id"]);
+                    $route = R::findOne('routes', ' id = ? ', ["$routes_id"]);
+                    $id = $result['id'];
                     ?>
                     <tr>
-                      <td><?= $member['name'] ?></td>
-                      <td><?= $member['phone'] ?></td>
-                      <td><?= $member['email'] ?></td>
+                      <td><?= $member->name ?></td>
+                      <td><?= $route->description ?></td>
+                      <td><?= $result['date'] ?></td>
+                      <td><?= $result['time'] ?></td>
+                      <td><?= $result['description'] ?></td>
                     </tr>
                     <?php
                   }
